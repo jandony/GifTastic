@@ -50,7 +50,7 @@
     // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
     var a = $("<button>");
     // Adding a class of movie-btn to our button
-    a.addClass("btn").addClass("btn-info").addClass("m-1");
+    a.addClass("btn").addClass("btn-info").addClass("m-1").addClass("Button");
     // Adding a data-attribute
     a.attr("data-animal", animals[i]);
     // Providing the initial button text
@@ -63,7 +63,7 @@
     renderButtons();
 
     // Adding click event listen listener to all buttons
-    $("button").on("click", function() {
+    function displayGifs() {
       // Grabbing and storing the data-animal property value from the button
       var animal = $(this).attr("data-animal");
 
@@ -98,8 +98,8 @@
             // Setting the src attribute of the image to a property pulled off the result item
             animalImage.attr("src", results[i].images.fixed_height_still.url);
 
-            animalImage.attr("data-still", JSON.stringify(results[i].images.fixed_height_still.url));
-            animalImage.attr("data-animate", JSON.stringify(results[i].images.fixed_height.url));
+            animalImage.attr("data-still", results[i].images.fixed_height_still.url);
+            animalImage.attr("data-animate", results[i].images.fixed_height.url);
             animalImage.attr("data-state", "still")
 
             // animalImage.data("data-state", results[i].);
@@ -114,21 +114,39 @@
         }
 
         });
-    });
+    };
 
+        $(document).on("click", ".gif", function () {
+        var state = $(this).attr("data-state");
+        console.log(state);
+        
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            
+            $(this).attr("data-state", "still");
+        }
+        });
+        
       // This function handles events where a movie button is clicked
       $("#select-gif").on("click", function(event) {
-        event.preventDefault();
-        // This line grabs the input from the textbox
-        var animal = $("#animal-input").val().trim();
-
-        // Adding movie from the textbox to our array
-        animals.push(animal);
+          event.preventDefault();
+          // This line grabs the input from the textbox
+          var animal = $("#animal-input").val().trim();
+          
+          // Adding movie from the textbox to our array
+          animals.push(animal);
+          
+          $("#animal-input").val("");
 
         // Calling renderButtons which handles the processing of our movie array
         renderButtons();
       });
 
+      $("#animalButtons").on("click", "Button", displayGifs);
 
   </script>
 </body>
