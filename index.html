@@ -28,7 +28,7 @@
         <!-- Animals Select Box -->
         <form id="animal-form" class="mb-5">
           <!-- Label for Text Box -->
-          <h3 id="animal-input">Add an animal: </h3>
+          <label for="animal-input">Add an animal: </label>
           <!-- Text Input Box -->
           <input type="text" id="animal-input">
           <!-- Submit Button -->
@@ -68,25 +68,25 @@
       // Function for displaying movie data
       function renderButtons() {
 
-    // Deleting the movies prior to adding new movies
-    // (this is necessary otherwise you will have repeat buttons)
-    $("#animalButtons").empty();
+        // Deleting the movies prior to adding new movies
+        // (this is necessary otherwise you will have repeat buttons)
+        $("#animalButtons").empty();
 
-    // Looping through the array of movies
-    for (var i = 0; i < animals.length; i++) {
+        // Looping through the array of movies
+        for (var i = 0; i < animals.length; i++) {
 
-    // Then dynamicaly generating buttons for each movie in the array
-    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-    var a = $("<button>");
-    // Adding a class of movie-btn to our button
-    a.addClass("btn").addClass("btn-info").addClass("rounded-pill").addClass("m-1").addClass("Button");
-    // Adding a data-attribute
-    a.attr("data-animal", animals[i]);
-    // Providing the initial button text
-    a.text(animals[i]);
-    // Adding the button to the gifs-appear-here div
-    $("#animalButtons").append(a);
-    }
+        // Then dynamicaly generating buttons for each movie in the array
+        // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+        var a = $("<button>");
+        // Adding a class of movie-btn to our button
+        a.addClass("btn").addClass("btn-info").addClass("rounded-pill").addClass("m-1").addClass("Button");
+        // Adding a data-attribute
+        a.attr("data-animal", animals[i]);
+        // Providing the initial button text
+        a.text(animals[i]);
+        // Adding the button to the gifs-appear-here div
+        $("#animalButtons").append(a);
+        }
     }
 
     renderButtons();
@@ -168,8 +168,10 @@
       // This function handles events where a movie button is clicked
       $("#select-gif").on("click", function(event) {
           event.preventDefault();
+
           // This line grabs the input from the textbox
           var animal = $("#animal-input").val().trim();
+          console.log(animal);
           
           // Adding movie from the textbox to our array
           animals.push(animal);
